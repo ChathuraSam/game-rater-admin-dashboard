@@ -1,24 +1,48 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Dashboard from './pages/Dashboard';
+import Layout from './pages/Layout';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
+import ResponsiveAppBar from './components/ResponsiveAppBar';
+import { useEffect, useState } from 'react';
+import { getAllGames } from './API/gameServices';
+import AddNewGame from './pages/NewGame';
+
+
 
 function App() {
+
+  const [games, setGames] = useState([]);
+
+  useEffect(()=> {
+    async function fetchData() {
+      try {
+        const response = await getAllGames();
+        setGames(response)
+        console.log(games);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchData();
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+    <ResponsiveAppBar />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Dashboard games={games}/>} />
+            <Route path="sign-in" element={<SignIn />} />
+            <Route path="sign-up" element={<SignUp />} />
+            <Route path="new-game" element={<AddNewGame />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </div>
+    
   );
 }
 
