@@ -8,6 +8,7 @@ import ResponsiveAppBar from './components/ResponsiveAppBar';
 import { useEffect, useState } from 'react';
 import { getAllGames } from './API/gameServices';
 import AddNewGame from './pages/NewGame';
+import ShowReviewsPage from './pages/ShowReviewsPage';
 
 
 
@@ -38,6 +39,7 @@ function App() {
             <Route path="sign-in" element={<SignIn />} />
             <Route path="sign-up" element={<SignUp />} />
             <Route path="new-game" element={<AddNewGame />} />
+            <Route path="show-reviews" element={<ShowReviewsPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

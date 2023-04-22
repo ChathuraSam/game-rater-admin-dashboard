@@ -16,6 +16,19 @@ export const getAllGames = async () => {
   return response.json();
 }
 
+export const getGameById = async (gameId) => {
+  const url = `${baseUrl}/games/${gameId}`;
+  const response = await fetch(url, {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "x-api-key": apiKey,
+      "Authorization": `Bearer ${token}`
+    },
+  });
+  return response.json();
+}
+
 export const deleteGame = async (gameId) => {
   const url = `${baseUrl}/games/${gameId}`;
   const response = await fetch(url, {

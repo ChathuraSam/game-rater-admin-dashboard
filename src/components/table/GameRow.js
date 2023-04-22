@@ -1,6 +1,13 @@
-import { Button, TableCell, TableRow } from "@mui/material";
+import { Button, ButtonGroup, TableCell, TableRow } from "@mui/material";
 import { deleteGame } from "../../API/gameServices";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import * as React from 'react';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 export default function GameRow({ key, game }) {
 
@@ -10,52 +17,66 @@ export default function GameRow({ key, game }) {
     console.log(gameId);
     await deleteGame(gameId);
     setShowPopup(true);
+    handleClose();
   }
+
+  const handleClickOpen = () => {
+    setShowPopup(true);
+  };
+
+  const handleClose = () => {
+    setShowPopup(false);
+  };
 
   return (
     <>
-    <TableRow
-      key={key}
-      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-    >
-      <TableCell component="th" scope="row">
-        <img alt={game.title} src={game.imageUrl} width={200} />
-      </TableCell>
-
-      <TableCell component="th" scope="row">
-        {game.title}
-      </TableCell>
-      <TableCell align="left">{game.developer}</TableCell>
-      <TableCell align="left">{game.description}</TableCell>
-      <TableCell align="left">
-        <Button variant="contained" color="error" onClick={() => removeGameHandler(game._id)}>
-          Remove
-        </Button>
-      </TableCell>
-    </TableRow>
-
-    {showPopup && (
-      <div className="popup">
-        <p>Row deleted successfully!</p>
-        <button onClick={() => setShowPopup(false)}>Close</button>
-      </div>
-    )}
-
-    <style jsx>{`
-      .popup {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: #55efc4;
-        padding: 10px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-        z-index: 9999;
-      }
-    `}</style>
+      <Dialog
+        open={showPopup}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Are you sure?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Game will be removed permanently.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>NO</Button>
+          <Button onClick={() => removeGameHandler(game._id)} autoFocus>
+            YES
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <TableRow
+        key={game._id}
+        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+      >
+        <TableCell component="th" scope="row">
+          <img alt={game.title} src={game.imageUrl} width={200} />
+        </TableCell>
+        <TableCell component="th" scope="row">
+          {game.title}
+        </TableCell>
+        <TableCell align="left">{game.developer}</TableCell>
+        <TableCell align="left">{game.description}</TableCell>
+        <TableCell align="left">
+          <ButtonGroup variant="contained" aria-label="outlined primary button group" >
+            <Button 
+              sx={{margin: 2 }} variant="contained" color="error" onClick={() => handleClickOpen()}>
+              Remove
+            </Button>
+            <Link to="/show-reviews">
+              <Button sx={{margin: 2 }} variant="contained" color="success">
+                Reviews
+              </Button>
+            </Link>
+          </ButtonGroup>
+        </TableCell>
+      </TableRow>
     </>
-    
-
   );
 }
