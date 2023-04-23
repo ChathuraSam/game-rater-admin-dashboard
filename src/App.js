@@ -1,41 +1,38 @@
-import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Dashboard from './pages/Dashboard';
-import Layout from './pages/Layout';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
-import ResponsiveAppBar from './components/ResponsiveAppBar';
-import { useEffect, useState } from 'react';
-import { getAllGames } from './API/gameServices';
-import AddNewGame from './pages/NewGame';
-import ShowReviewsPage from './pages/ShowReviewsPage';
-
-
+import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import Layout from "./pages/Layout";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import ResponsiveAppBar from "./components/ResponsiveAppBar";
+import { useEffect, useState } from "react";
+import { getAllGames } from "./API/gameServices";
+import AddNewGame from "./pages/NewGame";
+import ShowReviewsPage from "./pages/ShowReviewsPage";
 
 function App() {
-
   const [games, setGames] = useState([]);
 
-  useEffect(()=> {
+  useEffect(() => {
     async function fetchData() {
       try {
         const response = await getAllGames();
-        setGames(response)
+        setGames(response);
         console.log(games);
       } catch (error) {
         console.error(error);
       }
     }
     fetchData();
-  }, [])
+  }, []);
 
   return (
     <div>
-    <ResponsiveAppBar />
+      <ResponsiveAppBar />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route index element={<Dashboard games={games}/>} />
+            <Route index element={<Dashboard games={games} />} />
             <Route path="sign-in" element={<SignIn />} />
             <Route path="sign-up" element={<SignUp />} />
             <Route path="new-game" element={<AddNewGame />} />
@@ -44,7 +41,6 @@ function App() {
         </Routes>
       </BrowserRouter>
     </div>
-    
   );
 }
 

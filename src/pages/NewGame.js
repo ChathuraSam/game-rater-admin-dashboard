@@ -1,25 +1,30 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import * as React from "react";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useEffect, useState } from "react";
-import { addGame } from '../API/gameServices';
+import { addGame } from "../API/gameServices";
 
 function Copyright(props) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
         Your Website
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
@@ -27,26 +32,24 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function AddNewGame() {
-  const imagePlaceholder = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/640px-No-Image-Placeholder.svg.png"
+  const imagePlaceholder =
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/640px-No-Image-Placeholder.svg.png";
 
-  const [imageUrl, setImageUrl] = useState(imagePlaceholder)
-
+  const [imageUrl, setImageUrl] = useState(imagePlaceholder);
 
   const handleImageSettting = (e) => {
     const { value } = e.target;
-    if (value)
-      setImageUrl(value);
-    else
-      setImageUrl(imagePlaceholder);
-  }
+    if (value) setImageUrl(value);
+    else setImageUrl(imagePlaceholder);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const title =  data.get('title');
-    const description =  data.get('description');
-    const developer =  data.get('developer');
-    const imageUrl =  data.get('imageUrl');
+    const title = data.get("title");
+    const description = data.get("description");
+    const developer = data.get("developer");
+    const imageUrl = data.get("imageUrl");
     console.log({
       title: title,
       description: description,
@@ -63,16 +66,20 @@ export default function AddNewGame() {
         <Box
           sx={{
             marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-
           <Typography component="h1" variant="h5">
             New Game
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -118,7 +125,6 @@ export default function AddNewGame() {
                   id="description"
                 />
               </Grid>
-
             </Grid>
 
             <Button

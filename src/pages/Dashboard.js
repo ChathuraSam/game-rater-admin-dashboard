@@ -1,10 +1,10 @@
 import { Container } from "@mui/material";
 import GameTable from "../components/table/GameTable";
 
-const Dashboard = ({games, reviews}) => {
+const Dashboard = ({ games, reviews }) => {
   return (
-    <Container >
-      <GameTable games={games}/>
+    <Container>
+      <GameTable games={games} />
     </Container>
   );
 };
