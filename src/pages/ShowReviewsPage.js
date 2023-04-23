@@ -104,8 +104,8 @@ const ShowReviewsPage = () => {
                     {row.user}
                   </TableCell>
                   <TableCell align="right">{row.comment}</TableCell>
-                  <TableCell align="right">{row.gps}</TableCell>
-                  <TableCell align="right">{row.starRating}</TableCell>
+                  <TableCell align="right">{row.location}</TableCell>
+                  <TableCell align="right">{row.starRating}/10</TableCell>
                   <TableCell align="right">
                     <Button
                       sx={{ margin: 2 }}
