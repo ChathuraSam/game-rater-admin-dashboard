@@ -42,6 +42,7 @@ export default function GameRow({ key, game }) {
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             Game will be removed permanently.
+            If you are testing, please create a test game and remove
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -65,12 +66,14 @@ export default function GameRow({ key, game }) {
         <TableCell align="left">{game.description}</TableCell>
         <TableCell align="left">
           <ButtonGroup variant="contained" aria-label="outlined primary button group" >
-            <Button 
-              sx={{margin: 2 }} variant="contained" color="error" onClick={() => handleClickOpen()}>
+            <Button
+              sx={{ margin: 2 }} variant="contained" color="error" onClick={() => handleClickOpen()}>
               Remove
             </Button>
-            <Link to="/show-reviews">
-              <Button sx={{margin: 2 }} variant="contained" color="success">
+            <Link to={{
+              pathname: `/show-reviews/${game._id}`
+            }}>
+              <Button sx={{ margin: 2 }} variant="contained" color="success">
                 Reviews
               </Button>
             </Link>

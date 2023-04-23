@@ -39,7 +39,7 @@ function App() {
             <Route path="sign-in" element={<SignIn />} />
             <Route path="sign-up" element={<SignUp />} />
             <Route path="new-game" element={<AddNewGame />} />
-            <Route path="show-reviews" element={<ShowReviewsPage />} />
+            <Route path="show-reviews/:gameId" element={<ShowReviewsPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
